@@ -1,0 +1,9 @@
+{$APP_URL} {
+    encode zstd gzip
+    # No proxy access logs: NFC tokens and password reset links must not be logged.
+    reverse_proxy app:8000
+    header {
+        Strict-Transport-Security "max-age=31536000"
+        X-Content-Type-Options "nosniff"
+    }
+}

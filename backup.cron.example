@@ -1,0 +1,6 @@
+# Example root/operator crontab after configuring rclone for that OS user.
+# Replace project and remote values with your own. Keep remote credentials in rclone's protected config.
+SHIFTTAP_HOME=/opt/shifttap
+SHIFTTAP_REMOTE=your-backup-remote:shifttap
+# At 03:15 server local time; configure TZ on the server deliberately.
+15 3 * * * /opt/shifttap/scripts/offsite-backup.sh >> /var/log/shifttap-backup.log 2>&1

@@ -1,0 +1,45 @@
+# Customer-owned Render deployment. Free onrender.com address; paid persistent service.
+# Region/plan can be changed before applying; inspect the current price first.
+services:
+  - type: web
+    name: shifttap-adib
+    runtime: python
+    region: singapore
+    plan: 1c-2g
+    buildCommand: pip install -r requirements.txt
+    startCommand: python run_services.py
+    healthCheckPath: /health
+    numInstances: 1
+    disk:
+      name: shifttap-data
+      mountPath: /var/data
+      sizeGB: 5
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.11
+      - key: DB_PATH
+        value: /var/data/shifttap.sqlite
+      - key: BACKUP_DIR
+        value: /var/data/backups
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: TRUST_PROXY
+        value: "true"
+      - key: APP_SECRET
+        generateValue: true
+      - key: BACKUP_KEY
+        generateValue: true
+      - key: OWNER_EMAIL
+        value: adib_haque@hotmail.com
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "465"
+      - key: SMTP_MODE
+        value: ssl
+      - key: SMTP_USERNAME
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: SMTP_FROM
+        sync: false
